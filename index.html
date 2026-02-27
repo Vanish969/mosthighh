@@ -34,7 +34,7 @@ body::before{
 content:"";
 position:fixed;
 inset:0;
-background:url('https://i.imgur.com/YVuJgIz.gif') center/cover no-repeat;
+background:url('https://i.imgur.com/KJKWMPK.gif') center/cover no-repeat;
 filter:blur(6px) brightness(0.45);
 z-index:-2;
 }
@@ -103,12 +103,12 @@ margin-bottom:70px;
 .server img{
 width:75px;height:75px;border-radius:50%;
 object-fit:cover;
-box-shadow:0 0 25px rgba(255,0,0,0.4);
+box-shadow:none;
 transition:0.3s ease;
 }
 .server img:hover{
 transform:scale(1.08);
-box-shadow:0 0 40px rgba(255,0,0,0.7);
+box-shadow:none ;
 }
 .server-name{font-weight:800;font-size:22px;letter-spacing:2px;}
 .server-count{font-size:13px;opacity:0.7;}
@@ -181,7 +181,7 @@ width:100%;height:6px;background:#1a1a1a;
 border-radius:20px;cursor:pointer;margin:20px 0;
 }
 .progress-filled{
-height:100%;width:0%;background:#ff2e63;border-radius:20px;
+height:100%;width:0%;background:#FFFFFF;border-radius:20px;
 }
 .controls{display:flex;justify-content:center;gap:25px;}
 .controls button{
@@ -196,11 +196,9 @@ width:45px;height:45px;border-radius:12px;cursor:pointer;
 
 <div class="enter" id="enter"> 
 <img src="https://i.imgur.com/SstdLhU.png" class="enter-logo">
-
 <div class="typing-text">
-  <span id="typeText"></span>
+<span id="typeText"></span>
 </div>
-
 <div class="enter-btn">CLICK TO PROCEED</div>
 <div class="credit">DONT SNITCH</div>
 </div>
@@ -234,11 +232,11 @@ width:45px;height:45px;border-radius:12px;cursor:pointer;
 <div class="music-player">
 <div class="music-top">
 <div class="music-cover">
-<img src="https://i.imgur.com/FP1QUMb.jpeg">
+<img id="coverImg" src="https://i.imgur.com/FP1QUMb.jpeg">
 </div>
 <div class="music-info">
-<h2>XO.SICK</h2>
-<p>POISONHXRZY</p>
+<h2 id="songTitle">XO.SICK</h2>
+<p id="songArtist">POISONHXRZY</p>
 </div>
 </div>
 
@@ -247,22 +245,15 @@ width:45px;height:45px;border-radius:12px;cursor:pointer;
 </div>
 
 <div class="controls">
-
 <button onclick="music.currentTime=0">⇆</button>
-
-<button onclick="music.currentTime -= 5">◁ </button>
-
+<button id="prevBtn">◀</button>
 <button class="play-btn" id="playBtn">◼</button>
-
-<button onclick="music.currentTime += 5">▷</button>
-
+<button id="nextBtn">▶</button>
 </div>
 
 </div>
 
-<audio id="bgMusic" loop>
-<source src="mosthighaudio.mp3" type="audio/mpeg">
-</audio>
+<audio id="bgMusic"></audio>
 
 <script>
 const SERVER_ID="1473219452290994278";
@@ -285,13 +276,39 @@ const MEMBERS=[
 {id:"1235205702591447091",aff:"MEMBER"},
 {id:"1398643492611293237",aff:"MEMBER"},
 {id:"1476517345672564737",aff:"MEMBER"},
-
+{id:"668406689958985740",aff:"MEMBER"},
+{id:"1252278719184113724",aff:"MEMBER"},
+{id:"1041893197539966986",aff:"MEMBER"},
+{id:"1363423891384565876",aff:"MEMBER"},
+{id:"1322068540450148354",aff:"MEMBER"},
 ];
+
+const songs=[
+{title:"XO.SICK",artist:"POISONHXRZY",src:"mosthighaudio.mp3",cover:"https://i.imgur.com/FP1QUMb.jpeg"},
+{title:"SINCE DAY ONE",artist:"SKUSTA CLEE",src:"mosthigh2.mp3",cover:"https://i.imgur.com/kR4sGjU.jpeg"},
+{title:"FADED OFF",artist:"HEV ABI",src:"mosthigh3.mp3",cover:"https://i.imgur.com/pYj1bLu.jpeg"},
+{title:"MOLLY TO THE HEAD",artist:"HEV ABI",src:"mosthigh222.mp3",cover:"https://i.imgur.com/sdO82ev.jpeg"},
+{title:"TUSONG BATA",artist:"CUERVO MESSIAH",src:"mosthigh444.mp3",cover:"https://i.imgur.com/OyP2VH3.jpeg"}
+];
+
+let currentSong=0;
 
 const music=document.getElementById("bgMusic");
 const playBtn=document.getElementById("playBtn");
 const progress=document.getElementById("progress");
 const progressFilled=document.getElementById("progressFilled");
+const nextBtn=document.getElementById("nextBtn");
+const prevBtn=document.getElementById("prevBtn");
+const title=document.getElementById("songTitle");
+const artist=document.getElementById("songArtist");
+const cover=document.getElementById("coverImg");
+
+function loadSong(index){
+music.src=songs[index].src;
+title.textContent=songs[index].title;
+artist.textContent=songs[index].artist;
+cover.src=songs[index].cover;
+}
 
 document.getElementById("enter").addEventListener("click",()=>{
 document.getElementById("enter").style.opacity="0";
@@ -300,12 +317,36 @@ document.getElementById("enter").style.display="none";
 document.getElementById("main").style.opacity="1";
 },700);
 music.volume=0.5;
+loadSong(currentSong);
 music.play().then(()=>{playBtn.textContent="❚❚";});
 });
 
 playBtn.addEventListener("click",()=>{
 if(music.paused){music.play();playBtn.textContent="❚❚";}
 else{music.pause();playBtn.textContent="▶";}
+});
+
+nextBtn.addEventListener("click",()=>{
+currentSong++;
+if(currentSong>=songs.length){currentSong=0;}
+loadSong(currentSong);
+music.play();
+playBtn.textContent="❚❚";
+});
+
+prevBtn.addEventListener("click",()=>{
+currentSong--;
+if(currentSong<0){currentSong=songs.length-1;}
+loadSong(currentSong);
+music.play();
+playBtn.textContent="❚❚";
+});
+
+music.addEventListener("ended",()=>{
+currentSong++;
+if(currentSong>=songs.length){currentSong=0;}
+loadSong(currentSong);
+music.play();
 });
 
 music.addEventListener("timeupdate",()=>{
@@ -352,24 +393,19 @@ for(const m of HALL_MEMBERS){await loadUser(m,"hall");}
 for(const m of MEMBERS){await loadUser(m,"members");}
 } 
 
-const text = "Welcome to MOSTHIGH";
-const typeTarget = document.getElementById("typeText");
-let i = 0;
-
+const text="Welcome to MOSTHIGH";
+const typeTarget=document.getElementById("typeText");
+let i=0;
 function typeEffect(){
-if(i < text.length){
-typeTarget.textContent += text.charAt(i);
+if(i<text.length){
+typeTarget.textContent+=text.charAt(i);
 i++;
-setTimeout(typeEffect, 80);
-}
-}
-
+setTimeout(typeEffect,80);
+}}
 typeEffect();
-
 loadServer();
 loadAll();
 </script>
 
 </body>
-
 </html>
