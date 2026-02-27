@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@mosthigh</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+<style>
+.typing-text{
+font-family:'Poppins',sans-serif;
+font-style:italic;
+font-weight:500;
+font-size:16px;
+letter-spacing:1px;
+margin:15px 0 25px 0;
+color:white;
+opacity:0.9;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+overflow-x:hidden;
+position:relative;
+}
+
+body::before{
+content:"";
+position:fixed;
+inset:0;
+background:url('https://i.imgur.com/YVuJgIz.gif') center/cover no-repeat;
+filter:blur(6px) brightness(0.45);
+z-index:-2;
+}
+body::after{
+content:"";
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.6);
+z-index:-1;
+}
+
+.enter{
+position:fixed;
+inset:0;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:#000;
+z-index:9999;
+transition:0.8s ease;
+cursor:pointer;
+}
+.enter-logo{width:90px;margin-bottom:30px;}
+.enter-btn{
+border:1px solid rgba(255,255,255,0.15);
+padding:14px 55px;
+letter-spacing:4px;
+font-size:11px;
+color:#9c9c9c;
+background:transparent;
+text-transform:uppercase;
+}
+.credit,.section-title{
+margin-top:20px;
+font-size:12px;
+font-weight:800;
+letter-spacing:1px;
+background:linear-gradient(90deg,#666,#fff,#666);
+background-size:200% auto;
+color:transparent;
+background-clip:text;
+-webkit-background-clip:text;
+animation:shine 3s linear infinite;
+text-transform:uppercase;
+}
+@keyframes shine{to{background-position:200% center;}}
+
+.main{
+opacity:0;
+transition:1s ease;
+text-align:center;
+width:95%;
+max-width:1200px;
+padding:60px 0;
+}
+
+/* SERVER */
+.server{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:12px;
+margin-bottom:70px;
+}
+.server img{
+width:75px;height:75px;border-radius:50%;
+object-fit:cover;
+box-shadow:0 0 25px rgba(255,0,0,0.4);
+transition:0.3s ease;
+}
+.server img:hover{
+transform:scale(1.08);
+box-shadow:0 0 40px rgba(255,0,0,0.7);
+}
+.server-name{font-weight:800;font-size:22px;letter-spacing:2px;}
+.server-count{font-size:13px;opacity:0.7;}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+gap:40px;
+justify-items:center;
+margin:40px 0 80px;
+}
+.member{position:relative;text-align:center;}
+.member img{
+width:85px;height:85px;border-radius:50%;object-fit:cover;
+}
+.status{
+width:14px;height:14px;border-radius:50%;
+position:absolute;top:4px;right:6px;border:2px solid #111;
+}
+.online{background:#3ba55d;}
+.idle{background:#faa61a;}
+.dnd{background:#ed4245;}
+.offline{background:#747f8d;}
+.name{margin-top:10px;font-size:13px;font-weight:600;}
+.affiliation-role{
+font-size:10px;
+margin-top:4px;
+opacity:0.6;
+letter-spacing:1px;
+text-transform:uppercase;
+}
+
+/* AFFILIATES */
+.affiliates{
+display:flex;
+justify-content:center;
+gap:25px;
+margin-top:30px;
+margin-bottom:80px;
+flex-wrap:wrap;
+}
+.affiliates img{
+width:70px;
+height:70px;
+border-radius:15px;
+object-fit:cover;
+transition:0.3s ease;
+box-shadow:0 0 15px rgba(255,255,255,0.1);
+}
+.affiliates img:hover{
+transform:scale(1.1);
+box-shadow:0 0 30px rgba(255,0,0,0.6);
+}
+
+/* MUSIC */
+.music-player{
+width:420px;
+margin:80px auto 0;
+padding:30px;
+background:transparent;
+}
+.music-top{display:flex;align-items:center;gap:15px;margin-bottom:20px;}
+.music-cover{width:55px;height:55px;border-radius:15px;overflow:hidden;}
+.music-cover img{width:100%;height:100%;object-fit:cover;}
+.music-info h2{font-size:18px;font-weight:800;letter-spacing:2px;}
+.music-info p{font-size:13px;color:#777;margin-top:4px;font-weight:600;}
+.progress{
+width:100%;height:6px;background:#1a1a1a;
+border-radius:20px;cursor:pointer;margin:20px 0;
+}
+.progress-filled{
+height:100%;width:0%;background:#ff2e63;border-radius:20px;
+}
+.controls{display:flex;justify-content:center;gap:25px;}
+.controls button{
+background:#111;border:none;color:white;
+width:45px;height:45px;border-radius:12px;cursor:pointer;
+}
+.play-btn{width:60px;height:60px;border-radius:50%;}
+</style>
+</head>
+
+<body>
+
+<div class="enter" id="enter"> 
+<img src="https://i.imgur.com/SstdLhU.png" class="enter-logo">
+
+<div class="typing-text">
+  <span id="typeText"></span>
+</div>
+
+<div class="enter-btn">CLICK TO PROCEED</div>
+<div class="credit">DONT SNITCH</div>
+</div>
+
+<div class="main" id="main">
+
+<div class="server">
+<a href="https://discord.gg/rN2FRVMwe" target="_blank">
+<img src="https://i.imgur.com/brUgh3G.png">
+</a>
+<div class="server-name">MOSTHIGH #AMIRI</div>
+<div class="server-count" id="memberCount"></div>
+</div>
+
+<div class="section-title">Hall Of Fame</div>
+<div class="grid" id="hall"></div>
+
+<div class="section-title">Members</div>
+<div class="grid" id="members"></div>
+
+<div class="section-title">Affiliates</div>
+<div class="affiliates">
+<a href="https://discord.gg/ygZehmhQF" target="_blank">
+<img src="https://i.imgur.com/PX8RFQm.gif">
+</a>
+<a href="https://discord.gg/MNJTPcUPf" target="_blank">
+<img src="https://i.imgur.com/Mh4m3gm.jpeg">
+</a>
+</div>
+
+<div class="music-player">
+<div class="music-top">
+<div class="music-cover">
+<img src="https://i.imgur.com/FP1QUMb.jpeg">
+</div>
+<div class="music-info">
+<h2>XO.SICK</h2>
+<p>POISONHXRZY</p>
+</div>
+</div>
+
+<div class="progress" id="progress">
+<div class="progress-filled" id="progressFilled"></div>
+</div>
+
+<div class="controls">
+
+<button onclick="music.currentTime=0">⇆</button>
+
+<button onclick="music.currentTime -= 5">◁ </button>
+
+<button class="play-btn" id="playBtn">◼</button>
+
+<button onclick="music.currentTime += 5">▷</button>
+
+</div>
+
+</div>
+
+<audio id="bgMusic" loop>
+<source src="mosthighaudio.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const SERVER_ID="1473219452290994278";
+
+const HALL_MEMBERS=[
+{id:"872801712421871666",aff:""},
+{id:"1247871559566364754",aff:""},
+{id:"1423306502424498268",aff:""},
+{id:"1153336356345491547",aff:""},
+];
+
+const MEMBERS=[
+{id:"1247454329468616801",aff:"MEMBER"},
+{id:"880432964020862997",aff:"MEMBER"},
+{id:"982975445073006633",aff:"MEMBER"},
+{id:"1462657766316314819",aff:"MEMBER"},
+{id:"891881997868335135",aff:"MEMBER"},
+{id:"760731908236640336",aff:"MEMBER"},
+{id:"898916590639284234",aff:"MEMBER"},
+{id:"1235205702591447091",aff:"MEMBER"},
+{id:"1398643492611293237",aff:"MEMBER"},
+{id:"1476517345672564737",aff:"MEMBER"},
+
+];
+
+const music=document.getElementById("bgMusic");
+const playBtn=document.getElementById("playBtn");
+const progress=document.getElementById("progress");
+const progressFilled=document.getElementById("progressFilled");
+
+document.getElementById("enter").addEventListener("click",()=>{
+document.getElementById("enter").style.opacity="0";
+setTimeout(()=>{
+document.getElementById("enter").style.display="none";
+document.getElementById("main").style.opacity="1";
+},700);
+music.volume=0.5;
+music.play().then(()=>{playBtn.textContent="❚❚";});
+});
+
+playBtn.addEventListener("click",()=>{
+if(music.paused){music.play();playBtn.textContent="❚❚";}
+else{music.pause();playBtn.textContent="▶";}
+});
+
+music.addEventListener("timeupdate",()=>{
+if(!music.duration) return;
+progressFilled.style.width=(music.currentTime/music.duration)*100+"%";
+});
+
+progress.addEventListener("click",(e)=>{
+if(!music.duration) return;
+music.currentTime=(e.offsetX/progress.clientWidth)*music.duration;
+});
+
+async function loadServer(){
+try{
+const res=await fetch(`https://discord.com/api/guilds/${SERVER_ID}/widget.json`);
+const data=await res.json();
+document.getElementById("memberCount").innerText=(data.presence_count||0)+" online";
+}catch{}
+}
+
+async function loadUser(obj,containerId){
+try{
+const res=await fetch(`https://api.lanyard.rest/v1/users/${obj.id}`);
+const json=await res.json();
+if(!json.success) return;
+const user=json.data;
+const avatarFormat=user.discord_user.avatar?.startsWith("a_")?"gif":"png";
+const div=document.createElement("div");
+div.className="member";
+div.innerHTML=`
+<img src="https://cdn.discordapp.com/avatars/${obj.id}/${user.discord_user.avatar}.${avatarFormat}?size=256">
+<div class="status ${user.discord_status}"></div>
+<div class="name">${user.discord_user.username}</div>
+<div class="affiliation-role">${obj.aff}</div>
+`;
+document.getElementById(containerId).appendChild(div);
+}catch{}
+}
+
+async function loadAll(){
+document.getElementById("hall").innerHTML="";
+document.getElementById("members").innerHTML="";
+for(const m of HALL_MEMBERS){await loadUser(m,"hall");}
+for(const m of MEMBERS){await loadUser(m,"members");}
+} 
+
+const text = "Welcome to MOSTHIGH";
+const typeTarget = document.getElementById("typeText");
+let i = 0;
+
+function typeEffect(){
+if(i < text.length){
+typeTarget.textContent += text.charAt(i);
+i++;
+setTimeout(typeEffect, 80);
+}
+}
+
+typeEffect();
+
+loadServer();
+loadAll();
+</script>
+
+</body>
+</html>
