@@ -110,7 +110,12 @@ transition:0.3s ease;
 transform:scale(1.08);
 box-shadow:none ;
 }
-.server-name{font-weight:800;font-size:22px;letter-spacing:2px;}
+.server-name{
+font-weight:800;
+font-size:22px;
+color:white;
+letter-spacing:2px;
+}
 .server-count{font-size:13px;opacity:0.7;}
 
 /* GRID */
@@ -142,7 +147,7 @@ letter-spacing:1px;
 text-transform:uppercase;
 }
 
-/* AFFILIATES */
+/* AFFILIATES SIMPLE */
 .affiliates{
 display:flex;
 justify-content:center;
@@ -150,18 +155,42 @@ gap:25px;
 margin-top:30px;
 margin-bottom:80px;
 flex-wrap:wrap;
+text-align:center;
 }
-.affiliates img{
+.aff-item img{
 width:70px;
 height:70px;
 border-radius:15px;
 object-fit:cover;
 transition:0.3s ease;
-box-shadow:0 0 15px rgba(255,255,255,0.1);
 }
-.affiliates img:hover{
-transform:scale(1.1);
-box-shadow:0 0 30px rgba(255,0,0,0.6);
+.aff-item:hover img{
+transform:scale(1.05);
+}
+.aff-item .aff-name{
+color:white;
+font-weight:600;
+margin-top:5px;
+font-size:14px;
+}
+/* Transparent JOIN SERVER button */
+.aff-item a.join-btn{
+display:inline-block;
+margin-top:5px;
+padding:5px 12px;
+background:transparent;
+color:white;
+border:1.5px solid white;
+border-radius:6px;
+font-size:12px;
+font-weight:600;
+text-decoration:none;
+transition:0.3s ease, transform 0.3s ease;
+}
+.aff-item a.join-btn:hover{
+background:white;
+color:black;
+transform:translateY(-2px);
 }
 
 /* MUSIC */
@@ -209,7 +238,7 @@ width:45px;height:45px;border-radius:12px;cursor:pointer;
 <a href="https://discord.gg/rN2FRVMwe" target="_blank">
 <img src="https://i.imgur.com/brUgh3G.png">
 </a>
-<div class="server-name">MOSTHIGHSHIT</div>
+<div class="server-name">MOSTHIGHSHIT #REVSHIT</div>
 <div class="server-count" id="memberCount"></div>
 </div>
 
@@ -220,14 +249,7 @@ width:45px;height:45px;border-radius:12px;cursor:pointer;
 <div class="grid" id="members"></div>
 
 <div class="section-title">Affiliates</div>
-<div class="affiliates">
-<a href="https://discord.gg/ygZehmhQF" target="_blank">
-<img src="https://i.imgur.com/PX8RFQm.gif">
-</a>
-<a href="https://discord.gg/MNJTPcUPf" target="_blank">
-<img src="https://i.imgur.com/Mh4m3gm.jpeg">
-</a>
-</div>
+<div class="affiliates" id="affiliates"></div>
 
 <div class="music-player">
 <div class="music-top">
@@ -398,6 +420,30 @@ for(const m of HALL_MEMBERS){await loadUser(m,"hall");}
 for(const m of MEMBERS){await loadUser(m,"members");}
 } 
 
+// ==== SIMPLE AFFILIATES WITH TRANSPARENT JOIN BUTTON ====
+const AFFILIATES = [
+  {name:"XSWAZIE #MOFO!", invite:"https://discord.gg/ygZehmhQF", icon:"https://i.imgur.com/PX8RFQm.gif"},
+  {name:"2LAME #AMIRI", invite:"https://discord.gg/VW8W3fERv", icon:"https://i.imgur.com/lXStel5.gif"},
+];
+
+function loadAffiliates(){
+  const container = document.getElementById("affiliates");
+  container.innerHTML = "";
+  for(const s of AFFILIATES){
+    const div = document.createElement("div");
+    div.className = "aff-item";
+    div.innerHTML = `
+      <img src="${s.icon}">
+      <div class="aff-name">${s.name}</div>
+      <a href="${s.invite}" target="_blank" class="join-btn">JOIN SERVER</a>
+    `;
+    container.appendChild(div);
+  }
+}
+
+loadAffiliates();
+
+// === TYPE EFFECT + SERVER + MEMBERS ===
 const text="Welcome to MOSTHIGH";
 const typeTarget=document.getElementById("typeText");
 let i=0;
@@ -414,8 +460,3 @@ loadAll();
 
 </body>
 </html>
-
-
-
-
-
